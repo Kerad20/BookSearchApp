@@ -75,4 +75,6 @@ dependencies {
     implementation(libs.ktor.logging)
 
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.androidx.compose.material.icons.extended)
 }
