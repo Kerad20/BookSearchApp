@@ -5,4 +5,5 @@ data class SearchUiState(
     val isLoading: Boolean = false,
     val books: List<Book> = emptyList(),
     val recentSearches: List<String> = emptyList(),
+    val selectedBook: Book? = null
 )

@@ -1,6 +1,7 @@
 package com.example.booksearchapp.presentation.details
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -39,20 +40,29 @@ fun BooksListScreen(navController: NavController){
     ) {
         paddingValues ->
 
-        LazyColumn(
-            Modifier.padding(paddingValues)
-        ) {
-            items(state.books) {
-                BookCard(
-                    it.title,
-                    it.authors.joinToString(),
-                    it.languages.joinToString(),
-                    onClick = {
-
-                    }
-                )
+        Box {
+            LazyColumn(
+                Modifier.padding(paddingValues)
+            ) {
+                items(state.books) {
+                    BookCard(
+                        it.title,
+                        it.authors.joinToString(),
+                        it.languages.joinToString(),
+                        onClick = {
+                            vm.selectBook(it)
+                        }
+                    )
+                }
             }
         }
+
+        if (state.selectedBook != null) {
+            BookDetailSheet(
+                state.selectedBook!!, {vm.selectBook(null)}
+            )
+        }
+
     }
 
 }

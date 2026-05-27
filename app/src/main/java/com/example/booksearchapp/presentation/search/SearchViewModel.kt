@@ -3,6 +3,7 @@ package com.example.booksearchapp.presentation.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.util.query
+import com.example.booksearchapp.domain.model.Book
 import com.example.booksearchapp.domain.model.SearchUiState
 import com.example.booksearchapp.domain.model.UiEvent
 import com.example.booksearchapp.domain.repository.Resource
@@ -56,5 +57,10 @@ class SearchViewModel(
         }
     }
 
+    fun selectBook(value: Book?){
+        _state.update {
+            it.copy(selectedBook = value)
+        }
+    }
 
 }
