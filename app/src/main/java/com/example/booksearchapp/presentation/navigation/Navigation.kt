@@ -5,6 +5,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.booksearchapp.presentation.details.BooksListScreen
 import com.example.booksearchapp.presentation.saved.SavedScreen
 import com.example.booksearchapp.presentation.search.SearchScreen
 
@@ -19,6 +20,10 @@ fun Navigation() {
 
         composable (Routes.savedScreen) {
             SavedScreen(navHostController)
+        }
+
+        composable (Routes.booksListScreen) {
+            BooksListScreen(navHostController)
         }
     }
 }

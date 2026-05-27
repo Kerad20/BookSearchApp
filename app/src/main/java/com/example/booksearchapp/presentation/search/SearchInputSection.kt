@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-private fun SearchInputSection(
+fun SearchInputSection(
     query: String,
     onQueryChange: (String) -> Unit,
     onSearchClick: () -> Unit,
