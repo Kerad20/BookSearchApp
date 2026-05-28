@@ -1,5 +1,9 @@
 package com.example.booksearchapp.data.remote.api
 
+import kotlinx.serialization.SerializationException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+
 
 sealed interface NetworkError {
 
@@ -47,5 +51,17 @@ fun NetworkError.toMessage(): String {
 
         else ->
             "Unknown error"
+    }
+}
+
+fun Exception.toNetworkError(): NetworkError {
+    return when (this) {
+
+        is UnknownHostException -> NetworkError.NoInternet
+        is SocketTimeoutException -> NetworkError.Timeout
+
+        is SerializationException -> NetworkError.Serialization
+
+        else -> NetworkError.Unknown
     }
 }

@@ -78,4 +78,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.gson)
 }

@@ -1,5 +1,6 @@
 package com.example.booksearchapp.domain.usecase
 
+import com.example.booksearchapp.data.remote.dto.BookDto
 import com.example.booksearchapp.domain.model.Book
 import com.example.booksearchapp.domain.repository.BookRepository
 import com.example.booksearchapp.domain.repository.Resource

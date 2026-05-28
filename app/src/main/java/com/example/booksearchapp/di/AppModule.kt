@@ -9,9 +9,12 @@ import com.example.booksearchapp.data.repository.RecentSearchRepositoryImpl
 import com.example.booksearchapp.domain.repository.BookRepository
 import com.example.booksearchapp.domain.repository.RecentSearchRepository
 import com.example.booksearchapp.domain.usecase.GetRecentSearchUseCase
+import com.example.booksearchapp.domain.usecase.GetSavedBooksUseCase
+import com.example.booksearchapp.domain.usecase.SaveOfflineUseCase
 import com.example.booksearchapp.domain.usecase.SaveRecentSearchUseCase
 import com.example.booksearchapp.domain.usecase.SearchBooksUseCase
 import com.example.booksearchapp.domain.usecase.ValidateQueryUseCase
+import com.example.booksearchapp.presentation.saved.SavedViewModel
 import com.example.booksearchapp.presentation.search.SearchViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
@@ -27,7 +30,9 @@ val appModule = module {
             androidContext(),
             AppDatabase::class.java,
             "book_search_db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration(false)
+            .build()
     }
 
     single {
@@ -35,15 +40,22 @@ val appModule = module {
         get<AppDatabase>()
             .recentSearchDao()
     }
-    single<BookRepository> { BookRespositoryImpl(get ()) }
+    single {
+        get<AppDatabase>()
+            .bookDao()
+    }
+    single<BookRepository> { BookRespositoryImpl(get (), get ()) }
     single<RecentSearchRepository> { RecentSearchRepositoryImpl(get()) }
 
     single { GetRecentSearchUseCase(get()) }
     single { SaveRecentSearchUseCase(get()) }
     single { SearchBooksUseCase(get()) }
     single { ValidateQueryUseCase() }
+    single { SaveOfflineUseCase(get()) }
+    single { GetSavedBooksUseCase(get()) }
 
     viewModel { SearchViewModel(get(), get (),
-        get(), get()) }
+        get(), get(), get ()) }
 
+    viewModel { SavedViewModel(get()) }
 }

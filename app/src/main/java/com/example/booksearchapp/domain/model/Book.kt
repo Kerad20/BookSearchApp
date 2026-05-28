@@ -1,21 +1,18 @@
 package com.example.booksearchapp.domain.model
 
+import androidx.room.PrimaryKey
 import com.example.booksearchapp.data.remote.dto.Author
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class Book(
     val id: Long,
     val title: String,
-    val subjects: List<String>,
     val authors: List<Author>,
-    val summaries: List<String>,
-    val translators: List<String>,
-    val bookshelves: List<String>,
     val languages: List<String>,
-    val copyright: Boolean?,
-    val media_type: String,
+    val subjects: List<String>,
+    val bookshelves: List<String>,
+    val filePath: String?,
+    val fileSize: Long?,
     val formats: Map<String, String>,
-    val download_count: Long
-    )
-
+    val downloadCount: Long,
+    val timestamp: Long?
+)

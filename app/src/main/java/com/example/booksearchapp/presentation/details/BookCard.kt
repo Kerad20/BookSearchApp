@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 fun BookCard(
     title: String,
     author: String,
-    language: String,
+    language: String? = null,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -47,10 +47,13 @@ fun BookCard(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            Text(
-                text = "Language: $language",
-                style = MaterialTheme.typography.bodySmall
-            )
+            language?.let {
+                Text(
+                    text = "Language: $it",
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+
         }
     }
 }

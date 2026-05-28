@@ -1,13 +1,16 @@
 package com.example.booksearchapp.presentation.search
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.booksearchapp.core.util.ValidationResult
+import com.example.booksearchapp.data.remote.dto.BookDto
 import com.example.booksearchapp.domain.model.Book
 import com.example.booksearchapp.domain.model.SearchUiState
 import com.example.booksearchapp.domain.model.UiEvent
 import com.example.booksearchapp.domain.repository.Resource
 import com.example.booksearchapp.domain.usecase.GetRecentSearchUseCase
+import com.example.booksearchapp.domain.usecase.SaveOfflineUseCase
 import com.example.booksearchapp.domain.usecase.SaveRecentSearchUseCase
 import com.example.booksearchapp.domain.usecase.SearchBooksUseCase
 import com.example.booksearchapp.domain.usecase.ValidateQueryUseCase
@@ -23,7 +26,8 @@ class SearchViewModel(
     private val searchBooksUseCase: SearchBooksUseCase,
     private val validateQueryUseCase: ValidateQueryUseCase,
     private val getRecentSearchUseCase: GetRecentSearchUseCase,
-    private val saveRecentSearchUseCase: SaveRecentSearchUseCase
+    private val saveRecentSearchUseCase: SaveRecentSearchUseCase,
+    private val saveOfflineUseCase: SaveOfflineUseCase
 ): ViewModel() {
 
     init {
@@ -105,6 +109,13 @@ class SearchViewModel(
         _state.update {
             it.copy(selectedBook = value)
         }
+    }
+
+    fun saveOffline(book: Book?, context: Context) {
+        if (book != null)
+            viewModelScope.launch {
+                saveOfflineUseCase(book, context)
+            }
     }
 
 }

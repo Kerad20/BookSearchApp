@@ -1,5 +1,7 @@
 package com.example.booksearchapp.domain.model
 
+import com.example.booksearchapp.data.remote.dto.BookDto
+
 data class SearchUiState(
     val query: String = "",
     val isLoading: Boolean = false,

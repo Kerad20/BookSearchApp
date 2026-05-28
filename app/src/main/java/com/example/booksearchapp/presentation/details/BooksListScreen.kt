@@ -11,15 +11,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.booksearchapp.presentation.components.BottomNavigationBar
 import com.example.booksearchapp.presentation.navigation.Routes
 import com.example.booksearchapp.presentation.search.SearchViewModel
+import io.ktor.client.content.LocalFileContent
 import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun BooksListScreen(navController: NavController){
+
+    val context = LocalContext.current
 
     val parentEntry = remember(navController) {
         navController.getBackStackEntry(Routes.searchScreen)
@@ -47,10 +51,10 @@ fun BooksListScreen(navController: NavController){
                     BookCard(
                         it.title,
                         it.authors.joinToString(),
-                        it.languages.joinToString(),
                         onClick = {
                             vm.selectBook(it)
-                        }
+                        },
+                        language = it.languages.joinToString()
                     )
                 }
             }
@@ -58,7 +62,9 @@ fun BooksListScreen(navController: NavController){
 
         if (state.selectedBook != null) {
             BookDetailSheet(
-                state.selectedBook!!, {vm.selectBook(null)}
+                state.selectedBook!!,
+                {vm.saveOffline(state.selectedBook, context)},
+                {vm.selectBook(null)}
             )
         }
 
