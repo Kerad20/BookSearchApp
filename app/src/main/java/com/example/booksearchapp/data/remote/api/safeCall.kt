@@ -1,6 +1,5 @@
 package com.example.booksearchapp.data.remote.api
 
-import com.example.booksearchapp.data.remote.dto.ErrorMessage
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode

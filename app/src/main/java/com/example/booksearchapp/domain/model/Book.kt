@@ -2,7 +2,6 @@ package com.example.booksearchapp.domain.model
 
 import com.example.booksearchapp.data.remote.dto.Author
 import kotlinx.serialization.Serializable
-import javax.security.auth.Subject
 
 @Serializable
 data class Book(
