@@ -78,9 +78,13 @@ fun SearchScreen(navController: NavController) {
 
                 SearchInputSection(
                     state.query,
+                    state.recentSearches,
                     vm::onQueryChange,
                     {
-                        vm.searchBooks()
+                        vm.searchBooks(state.query)
+                    },
+                    {
+                        vm.searchBooks(it)
                     },
                     !state.isLoading
                 )

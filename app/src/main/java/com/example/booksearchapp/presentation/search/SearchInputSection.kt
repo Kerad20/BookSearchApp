@@ -1,11 +1,14 @@
 package com.example.booksearchapp.presentation.search
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -17,8 +20,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SearchInputSection(
     query: String,
+    recentQueries: List<String>,
     onQueryChange: (String) -> Unit,
     onSearchClick: () -> Unit,
+    onQueryClick: (String) -> Unit,
     isSearchEnabled: Boolean
 ) {
 
@@ -37,7 +42,8 @@ fun SearchInputSection(
                     imageVector = Icons.Default.Search,
                     contentDescription = null
                 )
-            }
+            },
+            enabled = isSearchEnabled
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -48,6 +54,16 @@ fun SearchInputSection(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Search")
+        }
+
+        FlowRow {
+            recentQueries.forEach { query ->
+                AssistChip(
+                    onClick = { onQueryClick(query) },
+                    label = { Text(query) }
+                )
+                Spacer(Modifier.width(8.dp))
+            }
         }
     }
 }
